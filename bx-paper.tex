@@ -1,0 +1,63 @@
+\documentclass[runningheads,a4paper]{llncs}
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{algorithm2e}
+\usepackage{url, listings, color}
+%\usepackage{hyperref}
+
+%two column float page must be 90% full
+\renewcommand\dblfloatpagefraction{.99}
+%two column top float can cover up to 80% of page
+\renewcommand\dbltopfraction{.99}
+%float page must be 90% full
+\renewcommand\floatpagefraction{.99}
+%top float can cover up to 80% of page
+\renewcommand\topfraction{.99}
+%bottom float can cover up to 80% of page
+\renewcommand\bottomfraction{.99}
+%at least 10% of a normal page must contain text
+\renewcommand\textfraction{.01}
+
+\newcommand{\code}[1] {{\footnotesize\sffamily #1}}
+
+\titlerunning{Engineering BX}
+\authorrunning{Richard F. Paige}
+
+\begin{document}
+
+\title{Engineering Bidirectional Transformations}
+
+\author{
+Richard F. Paige, richard.paige@york.ac.uk}
+%
+\institute{
+University of York, United Kingdom
+}
+
+\maketitle
+
+\begin{abstract}
+Bidirectional transformations, like software, or model and program transformations in general, need to be carefully engineered in order to provide guarantees about their correctness, completeness, acceptability and usability. This paper summarises a collection of lectures pertaining to engineering bidirectional transformations using Model-Driven Engineering techniques and technologies. It focuses on stages of a typical engineering lifecycle, starting with requirements and progressing to implementation and verification. It summarises Model-Driven Engineering approaches to capturing requirements, architectures and designs for bidirectional transformations, and suggests an approach for verification as well. 
+\end{abstract}
+
+\input{intro}
+
+\input{state-of-the-art}
+
+\input{requirements}
+
+\input{architecture-and-design}
+
+\input{verification}
+
+\input{conclusions}
+
+\paragraph*{}\textbf{Acknowledgements} Parts of this work were supported by the European Commission's 7th Framework Programme, through grant \#611125 (MONDO).
+
+\bibliographystyle{unsrt}
+\bibliography{bibliography,bme}  % sigproc.bib is the name of the Bibliography 
+
+\end{document}
