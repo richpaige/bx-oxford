@@ -1,2 +1,29 @@
 \section{Verification}
 \label{section:verification}
+
+\newcommand{\BX}{BX}
+
+In this section we explore an approach to verifying BX. The approach we present is intended to be pragmatic, meant to be used with existing MDE tools and technologies. As such we do not consider issues such as soundness or completeness, though the mechanisms are present to prove conjectures related to these properties if so desired.
+
+\BX\ are challenging to implement on account of the inherent complexity that they must encode. Model transformation languages supporting them often do so with conditions: some require that \BX\ are bijective (e.g.\ BOTL \cite{Braun-Marschall03a}), whereas others require users to work with specific formalisms such as triple graph grammars (e.g.\ MOFLON \cite{AKRS06a}).  Many modern transformation languages do not provide any support for \BX\ (e.g.\ ATL \cite{JABK08a}), meaning that users must express them as two separate unidirectional transformations. While this seems a practical workaround, the compatibility of the transformations might not be preserved over time.
+	
+A trade-off between the benefits (but complexity) of pure \BX\ languages and the practicality (but possible incoherence) of unidirectional transformations can be achieved in Epsilon, a platform of interoperable model management languages. Epsilon has languages supporting the specification of unidirectional transformations in either a rule-based (ETL), update-in-place (EWL), or operational (EOL) \cite{Paige-KRDP09a} style. Furthermore, it provides an inter-model consistency language (EVL \cite{Kolovos-Paige-Polack09a}) that can be used to express and evaluate constraints between models of different languages. With these languages together, \BX\ can be ``faked'' by: (1) defining pairs of unidirectional transformations for separately updating the source and target models; and (2) defining inter-model constraints in EVL, the violation of which will trigger appropriate transformations to restore consistency.
+	
+Although this process gives us a means of checking consistency and automatically triggering a transformation to restore it, we lack the important guarantee that \BX\ give us: the compatibility of the transformations. It might be the case that after the execution of one transformation, the other does not actually restore consistency, leading to further EVL violations. How do we check for, and maintain, compatibility? 
+	
+We aim to address this shortcoming and obtain the guarantees of \BX\ without
+the need for \BX\ languages. Instead, we will use \emph{rigorous} proof
+techniques to verify that faked \BX\ are consistency preserving, and thus
+indistinguishable to users from true \BX. To this end, we propose to apply
+techniques from graph transformation verification. Given a faked \BX\ in
+Epsilon, we will model the unidirectional transformations as graph
+transformation rules, and EVL constraints as nested graph conditions
+\cite{Habel-Pennemann09a}. Then, by leveraging graph transformation proof
+calculi \cite{Habel-Pennemann-Rensink06a,Poskitt13a,Poskitt-Plump12a} in a
+weakest precondition style, we aim to automatically prove compatibility of the
+unidirectional transformations with respect to the EVL
+constraints. Furthermore, we aim to exploit the model checker GROOVE
+\cite{Ghamarian-Mol-Rensink-Zambon-Zimakova12a} to automatically search for
+counterexamples when consistency preservation does not hold.
+
+
