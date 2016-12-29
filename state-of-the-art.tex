@@ -77,7 +77,7 @@ In this particular example, the domain clauses establish which model elements in
 The BX capabilities of QVT can also be illustrated by an example from QVT Core. Figure~\ref{fig:qvt-core} illustrates an example of a single mapping rule in QVT Core. This is a \textit{checking} example, which is used to check that particular patterns are satisfied by models. Once again, this is an example involving relations between a UML class model and a database model. The top part of the diagram (labelled Class to Table) defines the \textit{c2t} relation, which relates a class to a table. The bottom pattern is evaluated using variable values of a valid binding (a valid pair of class and table) from the top pattern. In effect, the top part of the mapping rule defines a guard which restricts the scope of the bottom part of the rule.
 
 \begin{figure}[htbp]
-\centering{\scalebox{0.6}{\includegraphics{mapping-rule.png}}}
+\centering{\scalebox{0.5}{\includegraphics{mapping-rule.png}}}
 \label{fig:qvt-core}
 \caption{QVT Core: mapping rule example}
 \end{figure}
@@ -92,17 +92,27 @@ In this section we briefly outline some of the key tools, based on MDE technolog
 \subsubsection{Medini}
 Medini\footnote{\url{http://projects.ikv.de/qvt/wiki}} claims to be a reasonably complete implementation of QVT Relations, but is currently unsupported. It is an EMF based transformation engine but also has a non-commercial licensed editor and debugger. While it uses the the QVT Relations syntax, it intentionally departs from the semantics of the OMG standard (e.g., how it supports deletion of elements, that it does not provide a checkonly mode). As such, we prefer not to label Medini as an implementation of QVT.
 
-\subsection{ModelMorf}
+\subsubsection{ModelMorf}
 ModelMorf is a proprietary tool from Tata Consulting Services\footnote{Archived copy available at \url{https://web.archive.org/web/20120323171429/http://www.tcs-trddc.com/trddc_website/ModelMorf/ModelMorf.htm}}. It also claims to faithfully implement the QVT Relations standard, but research by Stevens \cite{stevens11} shows that it does not fully implement the semantics specified in the standard. By some measures, it is more faithful than Medini, but it is still not a full implementation of QVT.
 
-\subsection{jQVT}
+\subsubsection{jQVT}
 jQVT\footnote{\url{https://sourceforge.net/projects/jqvt/}} is a QVT-like engine that is defined on top of the Java type system instead of using EMF. In turn, it uses Xbase (a partial programming language written in Xtext which compiles to Java and includes powerful features such as closures) instead of OCL for expressions. In essence, jQVT is a Java embedding of QVT; the jQVT engine generates native Java code from jQVT scripts. Of note is that it does provide support for bidirectional transformations. As of early 2016 jQVT was still being maintained.
 
-\subsection{Echo}
+\subsubsection{Echo}
 Echo\footnote{\url{http://haslab.github.io/echo/}} is an open-source EMF-based tool for model repair and transformation that exploits the Alloy model finder to determine models that satisfy relations. It in turn provides an implementation of the QVT Relations syntax, but the semantics intentionally departs from the OMG specification. Echo is also bidirectional.
 
-\subsection{JTL}
-The Janus Transformation Language (JTL) is a by-design bidirectional language with a QVT-like syntax, which propagates changes made in one model to the other. If a change made to one model makes the second model inconsistent, an approximation (``closest match'') is calculated using answer set programming. As such, there can be several solutions to a transformation problem and the results provided by JTL may need to be constrained further.
+\subsubsection{JTL}
+The Janus Transformation Language (JTL)\footnote{\url{http://jtl.di.univaq.it/}} is a by-design bidirectional language with a QVT-like syntax, which propagates changes made in one model to the other. If a change made to one model makes the second model inconsistent, an approximation (``closest match'') is calculated using answer set programming. As such, there can be several solutions to a transformation problem and the results provided by JTL may need to be constrained further.
 
+\subsubsection{Eclipse QVT}
+Substantial engineering effort is being put into the development of Eclipse QVT, a project that
+aims to support the full OMG QVT specification (though with Ecore instead of MOF models). Currently, QVT Operations is well supported and active as part of the Eclipse M2M project. QVT Relations (in Eclipse terms, QVT Declarative) and QVT Core are work-in-progress. As work on these projects is ongoing and their status is changing regularly, we refer the reader to the Eclipse MMT project website\footnote{\url{https://projects.eclipse.org/projects/modeling.mmt}} for the latest information. As of this writing, the intention with Eclipse QVT is that the Oxygen release in June 2017 will provide full support for QVT Relations.
+
+\subsubsection{Bidirectionalisation}
+There have been several approaches to so-called \textit{bidirectionalisation} of transformations. In these approaches, a forward transformation (from source to target) is written and the backward transformation is calculated or computed automatically. Examples of this approach include that of Hoisl \cite{HoislHH14a}. The GRoundTram approach of Sasano is another example \cite{SasanoHHIKN11}.
+
+\vspace{4mm}
+
+For further details, and a more in-depth classification of MDE approaches to BX, the interested reader is referred to Hidaka et al's excellent survey of BX \cite{HidakaTCH16}.
 
 
