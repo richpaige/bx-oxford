@@ -78,7 +78,7 @@ Non-functional requirements, recall, specify criteria against which we can judge
 Clearly, more research on requirements for BX is needed. As our experience with building BX grows, and our understanding of what constitutes a useful BX scenario increases, our ability to elaborate sensible functional and non-functional requirements for BX will improve.
 
 \subsection{Requirements Engineering Processes for BX}
-In this section we briefly outline typical stages of a requirements engineering process for BX and highlight the key artefacts and stakeholders that will be involved. We also point out some of the problems that might arise during requirements engineering. This leads in to the next section where we give an overview of some of the key techniques that can be used within a requirements engineering process for BX.
+In this section we briefly outline typical stages of a requirements engineering process for BX and highlight the key artefacts and stakeholders that will be involved. We discuss elicitation in some detail, and evaluation briefly. This leads in to the next section where we give an overview of some of the key specification techniques that can be used within a requirements engineering process for BX.
 
 The requirements engineering literature, e.g., \cite{ieee-29148-2011}, identifies the following generic phases in requirements engineering:
 \begin{itemize}
@@ -121,9 +121,45 @@ Another technique that can be used for elicitation is the \textit{unstructured i
 \end{itemize}
 Along with unstructured interviews there are \textit{structured} interviews, which involve asking pre-loaded questions about the domain and the BX, perhaps based around a checklist linked to a requirements pattern catalogue. For example, a checklist of questions may be divided into parts, one focusing on questions related to global functional requirements (e.g., is hippocraticness important, is semantics preservation important?) and another related to local non-functional requirements (e.g., should this rule satisfy a specific time bound?)
 
-A final elicitation technique that we mention is \textit{scenario-based analysis}, where scenarios are used to capture different requirements transformation processing cases. The benefit of using scenarios is that they are concrete: scenarios are usually presented in a concrete scenario language, often supplemented with sketches of sample models. 
+A final elicitation technique that we mention is \textit{scenario-based analysis}, where scenarios are used to capture different requirements transformation processing cases. The benefit of using scenarios is that they are concrete: scenarios are usually presented in a concrete scenario language, often supplemented with sketches of sample models. For example, for BX we might specify a scenario for introducing or removing a pattern to change an object-oriented design. The forward transformation scenario could include a concrete example of introducing the pattern into an existing design.
 
 \subsection{Evaluation}
+Once we have elicited requirements for BX through any of the techniques described previously, we have a set of informal statements of what the BX must or should provide. These statements may be inconsistent, and ideally we should be identify this before we formalise the BX requirements in a specification. There is little to no published research on evaluation techniques for BX requirements. We may find some inspiration in the general requirements engineering literature. For example, one approach used for requirements evaluation is prototyping, i.e., engineers build a prototype (paper, mock-up, simulation) of a solution in order to help identify or reconcile inconsistencies. It is unclear whether the expense of building a BX prototype is greater than building a BX in the first place (because, for example, a BX prototype would need to be constructed using standard BX tools). Another approach that is sometimes used is goal-oriented analysis, but it is as of yet unclear  how goal-oriented techniques apply to the definition of BX. There are significant open questions relating to how we evaluate requirements for BX.
 
+\subsection{Requirements Specification for BX}
+Once informal requirements have been elicited and evaluated (i.e., checked for inconsistencies), it may be appropriate to produce a formal requirements specification. This is one area where there has been some research into different approaches for specifying transformation requirements, though there is still very limited experience of specifying requirements for BX in the specific. Here, we will focus on presenting details of one approach -- \transml\ -- which is a family of languages that can be used for engineering model transformations. \transml\ can, as we will show, be used to specify different aspects of the requirements for a BX. We will also use \transml\ in the next section to specify different facets of the architecture and design of a BX. For an alternative approach to specifying requirements for transformations, based on mind-maps, the interested is referred to the DSL-Maps approach \cite{PescadorL16}.
 
+\transml\ \cite{GuerraLKPS13} by way of introduction, is a family of MDE languages to support the lifecycle of transformation development, from requirements through to implementation. It is technology agnostic, and can be used with any transformation implementation language (there is published experience of using \transml\ with QVT, EOL, ETL and ATL). The overall architecture of \transml\ -- that is, the set of languages and their inter-relationships -- is depicted in Figure~\ref{fig:transML}.
+
+\begin{figure}[htbp]
+\centering{\scalebox{0.6}{\includegraphics{transml.png}}}
+\caption{\transml\ architecture; boxes represent languages (or sets of languages) and arrows represent dependencies, typically traceability links}
+\label{fig:transML}
+\end{figure}
+
+We focus on the requirements language of \transml\ in this section. \transml\ provides a diagrammatic representation of (BX) requirements that is derived from SysML requirements diagrams. Such specifications can be produced using any of the aforementioned techniques for elicitation. Because \transml\ is an MDE language, it is defined using metamodels. The \transml\  requirements metamodel is shown in Figure~\ref{fig:transml-requirements}.
+
+\begin{figure}[htbp]
+\centering{\scalebox{0.6}{\includegraphics{transml-requirements.png}}}
+\caption{\transml\ requirements metamodel}
+\label{fig:transml-requirements}
+\end{figure}
+
+The requirements metamodel is very simple, but defines an expressive requirements language for BX. The language explicitly supports hierarchical decomposition of requirements, as well as classification, refinement, and traceability. Of particular note is the \textit{ReqSource} element, which identifies where a requirement arises, i.e., in the source of a transformation, the target of a transformation, or from the transformation itself (it is generated by the transformation). 
+
+We illustrate the requirements metamodel with two examples, the first from Guerra et al \cite{GuerraLKPS13} which shows an example requirements model for a unidirectional transformation (Figure~\ref{fig:transml-requirements-example1}), and the second which shows an example for a BX (Figure~\ref{fig:transml-requirements-example2}). In both cases, the examples involve transformations from and between object-oriented and database models. We observe that different concrete syntaxes are used in each example. The first concrete syntax is based on SysML, whereas the second is a box-and-arrow domain-specific requirements language.
+
+\begin{figure}[htbp]
+\centering{\scalebox{0.6}{\includegraphics{transml-requirements-example1.png}}}
+\caption{\transml\ requirements model example (SysML-like concrete syntax)}
+\label{fig:transml-requirements-example1}
+\end{figure}
+
+The top-level requirement (OO2DB Transformation) is decomposed into the set of requirements below (i.e., No Redefined Attributes, Classes, Features). The Features requirement is further decomposed in the last level of the diagram. Note that derived requirements are also noted, i.e., that the Inherited Attributes requirement is derived from the Single-Val-Attributes and Multi-Val-Attributes requirements.
+
+\begin{figure}[htbp]
+\centering{\scalebox{0.6}{\includegraphics{transml-requirements-example2.png}}}
+\caption{\transml\ requirements model example (box-and-arrow concrete syntax)}
+\label{fig:transml-requirements-example2}
+\end{figure}
 
