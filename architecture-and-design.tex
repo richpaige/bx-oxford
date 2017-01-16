@@ -56,5 +56,37 @@ The type-centric view represents the individual transformations as relationships
 \end{figure}
 
 \subsection{Design of BX}
-The architecture of a software system captures the key components and their interrelationships. In the case of a BX this includes the connections between transformation components, the ports through which components communication, and restrictions and constraints on that communication. The engineering process for BX continues with design, which can be broken into two parts: \textit{high-level design}, which focuses on capturing \textit{what is transformed into what}; and \textit{low-level design}, which focuses on capturing \textit{how} the transformation is to be carried out. We briefly consider \transml\ support for each aspect.
+The architecture of a software system captures the key components and their interrelationships. In the case of a BX this includes the connections between transformation components, the ports through which components communicate, and restrictions and constraints on that communication. The engineering process for BX continues with design, which can be broken into two parts: \textit{high-level design}, which focuses on capturing \textit{what is transformed into what}; and \textit{low-level design}, which focuses on capturing \textit{how} the transformation is to be carried out. We briefly consider \transml\ support for each aspect.
+
+High-level design of a BX, once again, aims to capture what is transformed into what. To represent this, \transml\ introduces a \textit{mapping diagram}, inspired by triple graph grammars. These capture the mappings between arbitrary model elements involved in the transformation. However, mappings are not meant to be used as a implementation model -- specifically, they are not meant to be used as a tracing mechanism to guide the execution of code (this, as we will soon see, is the purpose of the low-level design features of \transml\).
+
+The \transml\ metamodel for mapping diagrams is illustrated in Figure~\ref{fig:transml-mapping-diagram}. Mappings have ends which are associated with modelling elements. Navigability is a property of mappings; BX will involve navigation to both source and target. Constraints can be attached to mappings in order to define conditions on when (part of) a mapping can hold. 
+
+\begin{figure}[htbp]
+\centering{\scalebox{0.6}{\includegraphics{transml-mapping-diagram.png}}}
+\caption{\transml\ mapping diagram metamodel}
+\label{fig:transml-mapping-diagram}
+\end{figure}
+
+Figure~\ref{fig:transml-mapping-example1} illustrates a mapping, for the Class2Relational BX. On the left of the diagram is a package containing key modelling elements of an OO model; on the right, a database model. In the centre are the mappings along with some informal English text explaining the purpose of each distinct mapping. Note the navigability of each rule; these can be executed from a DB model to an OO model, or vice versa.
+
+\begin{figure}[htbp]
+\centering{\scalebox{0.6}{\includegraphics{transml-mapping-example1.png}}}
+\caption{\transml\ mapping example}
+\label{fig:transml-mapping-example1}
+\end{figure}
+
+The next example elaborates what is presented in Figure~\ref{fig:transml-mapping-example1} and imposes a constraint on the very last mapping, Multi-Val-Att-Top. The constraint, expressed in OCL, states that the owner of an attribute cannot have any parent classes; this is so that multi-valued attributes can be appropriately flattened into a table.
+
+\begin{figure}[htbp]
+\centering{\scalebox{0.6}{\includegraphics{transml-mapping-example2.png}}}
+\caption{\transml\ mapping example (constraint)}
+\label{fig:architecture-example3}
+\end{figure}
+
+While high-level design is supported in \transml\ via mapping diagrams, low-level design -- which is where the transition to implementation begins -- is
+supported by more detailed diagrams. Technically, low-level design \textit{could} be supported by using a favourite BX programming language. But it may be preferable - for reasons of process - to maintain a degree of platform independence while still focusing on the essential aspects of BX development. As such, \transml\ provides low-level design languages for capturing the \textit{structure} of BX rules, control flow, and blocks. These are encapsulated in two diagrams: the \textit{rule structure diagram} and the \textit{rule behaviour diagram}.
+
+The rule structure diagram (metamodel in Figure~\ref{fig:transml-rulestructure} is used to refine a mapping diagram. A rule can contribute to the implementation of one or more mappings. Rules themselves may be unidirectional or bidirectional. Structure diagrams also allow for explicit or implicit (e.g., nondeterministic) capture of execution flow, via subclasses of the \textit{Flow} metaclass. In particular, a set of rules can be placed inside a nondeterministic block, for example, as in graph transformation programs.
+
 
