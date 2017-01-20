@@ -87,6 +87,60 @@ The next example elaborates what is presented in Figure~\ref{fig:transml-mapping
 While high-level design is supported in \transml\ via mapping diagrams, low-level design -- which is where the transition to implementation begins -- is
 supported by more detailed diagrams. Technically, low-level design \textit{could} be supported by using a favourite BX programming language. But it may be preferable - for reasons of process - to maintain a degree of platform independence while still focusing on the essential aspects of BX development. As such, \transml\ provides low-level design languages for capturing the \textit{structure} of BX rules, control flow, and blocks. These are encapsulated in two diagrams: the \textit{rule structure diagram} and the \textit{rule behaviour diagram}.
 
-The rule structure diagram (metamodel in Figure~\ref{fig:transml-rulestructure} is used to refine a mapping diagram. A rule can contribute to the implementation of one or more mappings. Rules themselves may be unidirectional or bidirectional. Structure diagrams also allow for explicit or implicit (e.g., nondeterministic) capture of execution flow, via subclasses of the \textit{Flow} metaclass. In particular, a set of rules can be placed inside a nondeterministic block, for example, as in graph transformation programs.
+The rule structure diagram (metamodel in Figure~\ref{fig:transml-rulestructure} is used to refine a mapping diagram. A rule in such a diagram can contribute to the implementation of one or more mappings. Rules themselves may be unidirectional or bidirectional. Structure diagrams also allow for explicit or implicit (e.g., nondeterministic) capture of execution flow, via subclasses of the \textit{Flow} metaclass. In particular, a set of rules can be placed inside a nondeterministic block, for example, as in graph transformation programs.
 
+\begin{figure}[htbp]
+\centering{\scalebox{0.6}{\includegraphics{transml-rulestructure-diagram.png}}}
+\caption{\transml\ rule structure diagram metamodel}
+\label{fig:transml-rulestructure}
+\end{figure}
 
+Effectively, rule structure diagrams capture the structure rules, execution flow and data dependencies. This is illustrated in Figure~\ref{fig:transml-rulestructure-example}, which shows a directional transformation from an object-oriented model to a database model. The structure in particular is tailored to a representation of rules in the Epsilon Transformation Language (ETL). There is a top-level rule (Class2Table) that is executed initially; its execution is followed by a block of rules that execute nondeterministically; these populate the structure of a database table (i.e., Reference2Column, SingleValuedAtt2Column, MultiValuedAtt2Table). Note that blocks can be a useful mechanism for design, even if the ultimate implementation language does not support them (for example, ETL does not support blocks directly).
+
+\begin{figure}[htbp]
+\centering{\scalebox{0.6}{\includegraphics{transml-rulestructure-example.png}}}
+\caption{\transml\ rule structure diagram example}
+\label{fig:transml-rulestructure-example}
+\end{figure}
+
+A second example is shown in Listing~\ref{listing:bx-blocks}. In this case, a small domain-specific BX language is used to specify parts of a transformation between trees and graphs. The transformation is divided into two nondeterministic blocks; these blocks encapsulate bidirectional rules between elements of one model (e.g., Tree) and elements of a second model (e.g., Node). 
+
+\begin{lstlisting}[caption=An example of a BX using blocks, label=listing:bx-blocks]
+transformation Tree2Graph {
+  nondeterministic RuleBlockForward {
+     bidirectional Tree2Node { ... };
+     bidirectional TreeEdge2GraphEdge {...};
+   }
+   
+   nondeterministic RuleBlockBackward {
+      bidirectional TreeLabelsfromNodeLabels {...};
+      bidirectional TreeEdgesfromGraphEdges { ... };
+    }
+}
+\end{lstlisting}
+Rule structure diagrams in particular need to take into account the choice of ultimate implementation language. This is because these diagrams capture execution flow, which is platform specific. For example, consider ETL: the execution flow model is such that each rule is executed once at each instance of input; by comparison, in a graph transformation language, execution is for ``as long as possible'', i.e., until a fix-point is reached. As such, a specific rule structure diagram may be transformed easily to one implementation language, but not another. The metamodel for rule structures is, in our experience, sufficiently generic to capture a number of transformation implementation languages, but there may be specific features of specific implementation languages that we have not considered that are not easily supported.
+
+The rule structure diagram treats rules as black boxes, ignoring their behaviour. As such, concepts such as attribute contribution, object creation, or link configuration will be ignored. These can all be specified using implementation languages such as ETL, but \transml\ also provides a diagram for their specification: the rule behaviour diagram. This allows the behaviour of rules to be captured using an action language, or declarative graphical pre- and postconditions, or object diagrams annotated with operations (similar in a sense to Catalysis snapshots). An example unidirectional rule behaviour diagram is shown in Figure~\ref{fig:transml-rule-behaviour-example}. On the left of the figure is a snapshot with annotations indicating creation of objects. On the right is the ETL program that would correspond to such a diagram.
+
+ \begin{figure}[htbp]
+\centering{\scalebox{0.6}{\includegraphics{transml-rulebehaviour-example.png}}}
+\caption{\transml\ rule behaviour diagram example}
+\label{fig:transml-rule-behaviour-example}
+\end{figure}
+
+It should be noted that while we have broad and quite deep experience of using \transml\ for engineering unidirectional transformations, we have much less experience of using it for engineering BX. Using some of the features of \transml\ for capturing different aspects of BX may be a useful contribution to the BX community, as they provide platform-independent ways of specifying different features.
+
+\subsection{Design Patterns for BX}
+In this section we very briefly discuss several design patterns \cite{Gof1995} for BX. Design patterns in general capture recurring design problems (e.g., in object-oriented design) and their solutions. Solutions generally need to be instantiated for particular problem concepts. Many different patterns have been developed and captured in the literature, including some for model transformations. In this section we present three examples, taken from \cite{LanoKR14} with some customisation for our context.
+
+\subsubsection{Auxiliary Correspondence Model Pattern}
+A special kind of model transformation is a \textit{merging} or \textit{weaving}, where two or more models are combined into a single model. This weaving process can be carried out in batch mode or via a change propagation approach, where changes from the models being combined can be propagated to others. In doing so, most such transformations make use of a so-called \textit{auxiliary correspondence model}. This is a design pattern: the auxiliary correspondence model defines auxiliary model elements and associations that link source and target elements. It can be used to record mappings performed by a BX and to propagate modifications when one model changes. The benefits of using such a pattern is that it separates concerns: the source and target models are kept separate from the connections that link their elements. In turn, these explicit links between source and target model can make it easier to check correctness and coverage in the transformation. The disadvantage of applying this pattern is that it requires maintenance of an additional model.
+
+\subsubsection{Unique Instantiation Pattern}
+This pattern focuses on improving the efficiency of transformations. In particular, it is applied to avoid duplicating model elements in either the source or the target of a BX. In particular, the pattern imposes a check that an element satisfying specified properties does not exist, before the element is actually created in the source or target. For example, in a QVT-Relations transformation that has applied this pattern, new elements will not be created if there are already elements that satisfy the relations specified; this is really at the heart of check-before-enforce mode in QVT-Relations. The benefit of using this pattern is that it can help ensure hippocraticness; the disadvantage is the test for existence, which can degrade performance. However, we note that other patterns, e.g., related to indexing \cite{LanoKR14} -- and model indexing frameworks like Hawk -- can help offset this.
+
+\subsubsection{Map Objects Before Links Pattern}
+This pattern is used to separate the relation between elements in source and target models from the relations between \textit{links} in the models. A particular application of this pattern would be to structure a transformation wherein model elements are transformed before the relations between model elements (i.e., nodes before edges). Such an execution flow may be useful in cases where models may have self-associations or circular dependencies. The benefit of using this pattern is similar to that of the Visitor pattern in object-oriented design: the specification of the transformation is modular and processing for a new type of association in a modelling language can be more easily handled. The disadvantage of using this pattern is that while edges (relations) are treated modularly, nodes (model elements) may not be, and if a new feature is added to a language, it may require significant restructuring to the transformation that has used this pattern.
+
+\subsection{Summary}
+In this section we have discussed different aspects of the architecture and design of BX, covering abstract architecture for transformations, through high-level and low-level design, including behaviour of individual transformation rules, as well as a selection of design patterns that can be used to help increase cohesion and decrease coupling in our BX. We will next briefly discuss an approach to verification of BX, focusing on use of mathematical techniques.
