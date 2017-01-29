@@ -66,13 +66,13 @@ Note the wording of these requirements; we have used the words \textit{must}, \t
 Non-functional requirements, recall, specify criteria against which we can judge the quality of a BX. As is the case for functional requirements for BX, there is limited research on non-functional requirements. Some examples have been proposed in \cite{NalchigarSC13}, and we list a selection here.
 
 \begin{itemize}
-\item Extensibility: the extent to which the BX can be extended to support new functional requirements  or a change in scope.
+\item \textit{Extensibility}: the extent to which the BX can be extended to support new functional requirements  or a change in scope.
 
-\item Usability: is the BX judged to be usable by stakeholders?
+\item \textit{Usability}: is the BX judged to be usable by stakeholders?
 
-\item Robustness: can the BX manage invalid models (i.e., that do not conform to the metamodels involved in the BX), or deal with errors in models?
+\item \textit{Robustness}: can the BX manage invalid models (i.e., that do not conform to the metamodels involved in the BX), or deal with errors in models?
 
-\item Interoperability: can the BX be combined and used together with non-BX tools (e.g., other MDE tools and operations, such as model comparisons or mergings)?
+\item \textit{Interoperability}: can the BX be combined and used together with non-BX tools (e.g., other MDE tools and operations, such as model comparisons or mergings)?
 \end{itemize}
 
 Clearly, more research on requirements for BX is needed. As our experience with building BX grows, and our understanding of what constitutes a useful BX scenario increases, our ability to elaborate sensible functional and non-functional requirements for BX will improve.
@@ -109,9 +109,9 @@ This is generic, applicable to any kind of software or systems engineering. What
 \end{itemize}
 
 \subsection{Elicitation}
-\textit{Elicitation} is an important first step in any requirements engineering process. What techniques might be applicable for BX? Many of the traditional elicitation techniques appear to be directly applicable to BX problems with little change, as argued by Tehrani et al \cite{TehraniZL16}. For example, a classic elicitation technique is observation (an ethnographic method): observing an existing -- possibly manual -- BX technique or process could provide sensible requirements for an automated process. Consider a scenario wherein a BX is to be defined between an Excel spreadsheet and a SysML requirements diagram\footnote{This is a sanitised version of a real problem encountered by the author.} A manual BX process between the two might involve (a) making changes to cells in an Excel column; (b) switching to a SysML editor; and (c) modifying attributes in a SysML class model. This might indicate to a requirements engineer a sequence of steps that is needed to implement in an automated BX.
+\textit{Elicitation} is an important first step in any requirements engineering process. What techniques might be applicable for BX? Many of the traditional elicitation techniques appear to be directly applicable to BX problems with little change, as argued by Tehrani et al \cite{TehraniZL16}. For example, a classic elicitation technique is observation (an ethnographic method): observing an existing -- possibly manual -- BX technique or process could provide sensible requirements for an automated process. Consider a scenario wherein a BX is to be defined between an Excel spreadsheet and a SysML requirements diagram\footnote{This is a sanitised version of a real problem encountered by the author.}. A manual BX process between the two might involve (a) making changes to cells in an Excel column; (b) switching to a SysML editor; and (c) modifying attributes in a SysML class model. This might indicate to a requirements engineer a sequence of steps that is needed to implement in an automated BX.
 
-Another technique that can be used for elicitation is the \textit{unstructured interview}, where open-ended questions are asked about the problem domain or the current (BX) process. This can be useful for identifying transformation goals, e.g., ``ensure that the source and target models are inconsistent for no more than 10ms''. In carrying out an unstructured interview regarding a transformation, Tehrani \cite{TehraniZL16} suggests some generic open-ended questions that may be useful to consider; we have extended their questions with some of our own, based on our experience in the MONDO project\footnote{http://www.mondo-project.org/}.
+Another technique that can be used for elicitation is the \textit{unstructured interview}, where open-ended questions are asked about the problem domain or the current (BX) process. This can be useful for identifying transformation goals, e.g., ``ensure that the source and target models are inconsistent for no more than 10ms''. In carrying out an unstructured interview regarding a transformation, Tehrani \cite{TehraniZL16} suggests some generic open-ended questions that may be useful to consider; we have extended their questions with some of our own, based on our experience in the MONDO project\footnote{\url{http://www.mondo-project.org/}}.
 \begin{itemize}
 \item Is there a size range for the source and target models? This may suggest to the engineer the type of infrastructure that may be useful for the project (e.g., EMF to represent models).
 
@@ -129,7 +129,7 @@ Once we have elicited requirements for BX through any of the techniques describe
 \subsection{MDE Languages for Requirements Engineering for BX}
 In this section we move from a mostly abstract discussion on requirements engineering for BX and focus on the more concrete topic of languages that can be used to support requirements engineering for BX. There has been some work in this area -- i.e., on different MDE languages and tools for specifying transformation requirements -- though there is still very limited experience of specifying requirements for BX in the specific. Here, we will focus on presenting details of one approach -- \transml\ -- which is a family of languages that can be used for engineering model transformations. \transml\ can, as we will show, be used to specify different aspects of the requirements for a BX. We will also use \transml\ in the next section to specify different facets of the architecture and design of a BX. For an alternative approach to specifying requirements for transformations, based on mind-maps, the interested is referred to the DSL-Maps approach \cite{PescadorL16}.
 
-\transml\ \cite{GuerraLKPS13} by way of introduction, is a family of MDE languages to support the lifecycle of transformation development, from requirements through to implementation. It is technology agnostic, and can be used with any transformation implementation language (there is published experience of using \transml\ with QVT, EOL, ETL and ATL). The overall architecture of \transml\ -- that is, the set of languages and their inter-relationships -- is depicted in Figure~\ref{fig:transML}. The parts of \transml\ relevant to this section are the Requirements language (at the top) and the languages to support Analysis (Simple Scenarios and Formal Specification).
+\transml\ \cite{GuerraLKPS13}, by way of introduction, is a family of MDE languages to support the lifecycle of transformation development, from requirements through to implementation. It is technology agnostic, and can be used with any transformation implementation language (there is published experience of using \transml\ with QVT, EOL, ETL and ATL). The overall architecture of \transml\ -- that is, the set of languages and their inter-relationships -- is depicted in Figure~\ref{fig:transML}. The parts of \transml\ relevant to this section are the Requirements language (at the top) and the languages to support Analysis (Simple Scenarios and Formal Specification).
 
 \begin{figure}[htbp]
 \centering{\scalebox{0.6}{\includegraphics{transml.png}}}
@@ -160,14 +160,14 @@ We illustrate the requirements metamodel with two examples, the first from Guerr
 The top-level requirement (OO2DB Transformation) in Figure~\ref{fig:transml-requirements-example1} is decomposed into the set of requirements below (i.e., No Redefined Attributes, Classes, Features). The Features requirement is further decomposed in the last level of the diagram. Note that derived requirements are also noted, i.e., that the Inherited Attributes requirement is derived from the Single-Val-Attributes and Multi-Val-Attributes requirements.
 
 \begin{figure}[htbp]
-\centering{\scalebox{0.6}{\includegraphics{transml-requirements-example2.png}}}
+\centering{\scalebox{0.5}{\includegraphics{transml-requirements-example2.png}}}
 \caption{\transml\ requirements model example (box-and-arrow concrete syntax)}
 \label{fig:transml-requirements-example2}
 \end{figure}
 
 The example in Figure~\ref{fig:transml-requirements-example2} illustrates a requirements specification for a BX. It has a similar structure to the previous example for a unidirectional transformation. The main difference is in the expression of the individual requirements, which are expressed in terms of consistency relationships rather than transformation features. 
 
-Both of these examples are informal, in the sense that they rely substantial on natural language, and are the result of applying elicitation techniques; they may contain imprecision or inconsistencies, which may be resolved by analysis. \transml\ supports two sets of languages for requirements analysis: a simple scenario language, and a formal specification language for requirements. 
+Both of these examples are informal, in the sense that they rely substantially on natural language, and are the result of applying elicitation techniques; they may contain imprecision or inconsistencies, which may be resolved by analysis. \transml\ supports two sets of languages for requirements analysis: a simple scenario language, and a formal specification language for requirements. 
 
 The simple scenario language of \transml\ supports description of \textit{concrete cases} for transformation, i.e., how examples are meant to be related by the BX. \transml\ is applicable to both models or fragments of models, the latter of which is essential for incremental development and for working with large monolithic models. An example of a transformation case (i.e., a scenario) for part of an object-oriented to database BX is shown in Figure~\ref{fig:transml-example-case}.
 
@@ -184,12 +184,12 @@ The second \transml\ language for requirements analysis supports formal specific
 The metamodel for the \transml\ formal specification language for requirements is depicted in Figure~\ref{fig:transml-formal-language}.
 
 \begin{figure}[htbp]
-\centering{\scalebox{0.6}{\includegraphics{transml-formal-language.png}}}
+\centering{\scalebox{0.5}{\includegraphics{transml-formal-language.png}}}
 \caption{\transml\ formal specification language metamodel}
 \label{fig:transml-formal-language}
 \end{figure}
 
-A requirements specification (the Specification element in Figure~\ref{fig:transml-formal-language} is made up of a number of patterns. A pattern may be a positive or a negative precondition, which are similar to both the \textit{when}-clauses of QVT Relations, as well as triple graph grammar's negative application conditions. The Constraint Triple Graph element encodes these clauses, and also include correspondence graphs (which is effectively traceability information) as well as links to source and target graphs. 
+A requirements specification (the Specification element in Figure~\ref{fig:transml-formal-language}) is made up of a number of patterns. A pattern may be a positive or a negative precondition, which are similar to both the \textit{when}-clauses of QVT Relations, as well as triple graph grammar's negative application conditions. The Constraint Triple Graph element encodes these clauses, and also include correspondence graphs (which is effectively traceability information) as well as links to source and target graphs. 
 
 An example of a pattern for a BX is shown in Figure~\ref{fig:transml-pattern}. 
 

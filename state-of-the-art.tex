@@ -1,7 +1,7 @@
 \section{State of the Art}
 \label{section:state-of-the-art}
 
-This section addresses some of the important state of the art in MDE approaches to BX, focusing on three specific elements: important BX \textit{scenarios} that have been identified in the literature; important \textit{languages} that have been influential in research in BX -- in this case, we focus on QVT; and important \textit{tools} that implement aspects of BX and that are based on MDE technology. We do not consider non-MDE approaches to BX in this brief review, and we also exclude TGG approaches because these are covered in detail by other lectures.
+This section addresses some of the important state of the art in MDE approaches to BX, focusing on three specific elements: important BX \textit{scenarios} that have been identified in the literature; important \textit{languages} that have been influential in research in BX -- in this case, we focus on QVT; and important \textit{tools} that implement aspects of BX and that are based on MDE technology. We do not consider non-MDE approaches to BX in this brief review, and we also exclude TGG approaches because these are covered in detail by other lectures in this volume\footnote{Comment: replace this by a reference to Tony's paper once the final citation format for the volume have been specified.}.
 
 \subsection{BX Scenarios}
 A number of recurring scenarios of use for BX have appeared in the MDE literature. Many of the MDE tools and languages that we discuss in the sequel have been designed to address these scenarios.
@@ -13,16 +13,16 @@ A number of recurring scenarios of use for BX have appeared in the MDE literatur
 
 \item \textit{Synchronisation,} e.g., synchronising documents and code, like assurance cases and source code. This is related to round-trip engineering but synchronisation can involve model management operations other than transformations.
 
-\item \textit{Reflection,} for example, reflecting the results of some kind of analysis in a source model. A concrete instance of this was investigated in the MADES project where a UML MARTE model was transformed into a variety of formal models (UPPAAL, TRIO) to support analysis, and some of the results of the analysis were reflected in the MARTE models. This is an interesting example of a BX as the backwards transformation is generating a view of the target model which needs to be synchronised with the source model.
+\item \textit{Reflection,} for example, reflecting the results of some kind of analysis on a source model. A concrete instance of this was investigated in the MADES project\footnote{\url{http://www.mades-project.org/}} where a UML MARTE model was transformed into a variety of formal models (UPPAAL, TRIO) to support analysis, and some of the results of the analysis were reflected in the MARTE models. This is an interesting example of a BX as the backwards transformation is generating a view of the target model which needs to be synchronised with the source model.
 \end{enumerate}
 
 \subsection{Standard MDE languages for BX: QVT}
-While there are numerous tools and approaches, based on MDE technology (like Eclipse EMF) for supporting BX, most of these approaches are strongly influenced by a significant standardised language for transformation: the OMG's Query, View and Transformations (QVT) standard \cite{QVT-specification}. QVT is a family of languages that were first envisaged in 2002 upon issue of an OMG request for proposals to support aspects of the OMG's Model-Driven Architecture standard. A number of replies were received, and the first version was submitted and approved in 2005. The most recent version, QVT 1.3, was released in June 2016. 
+While there are tools and approaches, based on MDE technology (like Eclipse EMF) for supporting BX, most of these approaches are strongly influenced by a significant standardised language for transformation: the OMG's Query, View and Transformations (QVT) standard \cite{QVT-specification}. QVT is a family of languages that were first envisaged in 2002 upon issue of an OMG request for proposals to support aspects of the OMG's Model-Driven Architecture standard. A number of replies were received, and the first version was submitted and approved in 2005. The most recent version, QVT 1.3, was released in June 2016. 
 
 QVT, as mentioned, is a family of languages. These languages are meant to support transformation and querying of MOF models; transformations and queries in turn can be used to generate views. The basic architecture of QVT is illustrated in Figure~\ref{fig:qvt}. The QVT architecture builds on other OMG languages, particularly MOF but also the Object Constraint Language (OCL), from which QVT acquires its expression and collection manipulation facilities.
 
 \begin{figure}[htbp]
-\centering{\scalebox{0.6}{\includegraphics{qvt-architecture.png}}}
+\centering{\scalebox{0.5}{\includegraphics{qvt-architecture.png}}}
 \label{fig:qvt}
 \caption{QVT architecture from \cite{QVT-specification}}
 \end{figure}
@@ -42,7 +42,7 @@ The abstract syntax of the Relations language is illustrated in Figure~\ref{fig:
 \caption{QVT Relations abstract syntax}
 \end{figure}
 
-The abstract syntax can be interpreted as follows: a QVT Relations program contains a set of rules which are relations. Relations are made up of a patterns, and are applied to a set of typed model parameters. In particular, these relations can be interpreted in forward and backwards directions -- that is, Relations is a BX by design.
+The abstract syntax can be interpreted as follows: a QVT Relations program contains a set of rules which are relations. Relations are made up of a patterns, and are applied to a set of typed model parameters. In particular, these relations can be interpreted in forward and backwards directions -- that is, Relations is a BX language by design.
 
 An example of the concrete syntax of Relations is shown in Listing~\ref{listing:qvt-relations}. This example gives a relation that is used to map persistent classes in an object oriented program to a table. The example includes three parts: a domain (a set of patterns which defines the variables and constraints that model elements bound to those variables must satisfy -- i.e., the bindings for the relation); the \textit{when} clause (the conditions under which the relation must hold); and the \textit{where} clause (the condition that must be satisfied by all model elements participating in the relation). The interpretation of when-clauses in the Eclipse QVT implementation is that these are preconditions, and where-clause are postconditions. Both of these clauses may contain arbitrary OCL expressions.
 
@@ -82,7 +82,7 @@ The BX capabilities of QVT can also be illustrated by an example from QVT Core. 
 \caption{QVT Core: mapping rule example}
 \end{figure}
 
-Once again, the mapping rule is directionless; it can be executed either way, checking a database table against a UML class, or vice versa.
+The mapping rule is directionless; it can be executed either way, i.e., checking a database table against a UML class, or checking a UML class against a database table.
 
 The QVT standard is currently being further developed, both through the OMG standardisation efforts, but also through work on Eclipse QVT, an implementation of the different QVT languages. We briefly discuss the status of Eclipse QVT, and other MDE tools for BX, in the next subsection.
 
@@ -90,7 +90,7 @@ The QVT standard is currently being further developed, both through the OMG stan
 In this section we briefly outline some of the key tools, based on MDE technologies and principles, that either support or claim to support BX. As mentioned earlier, we exclude approaches based on triple graph grammars as these are covered elsewhere.
 
 \subsubsection{Medini}
-Medini\footnote{\url{http://projects.ikv.de/qvt/wiki}} claims to be a reasonably complete implementation of QVT Relations, but is currently unsupported. It is an EMF based transformation engine but also has a non-commercial licensed editor and debugger. While it uses the the QVT Relations syntax, it intentionally departs from the semantics of the OMG standard (e.g., how it supports deletion of elements, that it does not provide a checkonly mode). As such, we prefer not to label Medini as an implementation of QVT.
+Medini\footnote{\url{http://projects.ikv.de/qvt/wiki}} claims to be a reasonably complete implementation of QVT Relations, but is currently unsupported. It is an EMF based transformation engine but also has a non-commercial licensed editor and debugger. While it uses the the QVT Relations syntax, it intentionally departs from the semantics of the OMG standard (e.g., how it supports deletion of elements, that it does not provide a checkonly mode). As such, we prefer not to label Medini as an implementation of QVT, but as a tool that is inspired by QVT.
 
 \subsubsection{ModelMorf}
 ModelMorf is a proprietary tool from Tata Consulting Services\footnote{Archived copy available at \url{https://web.archive.org/web/20120323171429/http://www.tcs-trddc.com/trddc_website/ModelMorf/ModelMorf.htm}}. It also claims to faithfully implement the QVT Relations standard, but research by Stevens \cite{Stevens13} shows that it does not fully implement the semantics specified in the standard. By some measures, it is more faithful than Medini, but it is still not a full implementation of QVT.
