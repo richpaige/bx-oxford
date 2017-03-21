@@ -15,10 +15,10 @@ Requirements engineering is the process of identifying, documenting and maintain
 BX are software systems and as such will benefit from a clear understanding of requirements; for large or complicated BX, there may be benefits to following a rigorous requirements engineering process as well. In particular, an understanding of requirements for BX can help in mapping BX problems to tools that are suitable for implementation (and vice versa). An understanding of requirements for BX can also help in contrasting different potential solutions in terms of their tradeoffs in how they satisfy requirements.  
 
 \subsection{Questions and Properties for BX}
-A typical first phase of requirements engineering is \textit{identification}, where engineers attempt to determine what requirements a software system should exhibit. This in turn may help determine properties or constraints that the ultimate system will satisfy. There are numerous ways in which requirements can be identified, e.g., via stakeholder interview, by reviewing existing similar systems, by following questionnaires or checklists, or by using testing techniques to derive requirements. Based on \cite{TehraniZL16} we suggest some general questions that could be addressed when constructing a BX, the answers to which could help derive requirements.
+A typical first phase of requirements engineering is \textit{identification}, where engineers attempt to determine what requirements a software system should exhibit. This in turn may help determine properties or constraints that the ultimate system will satisfy. There are numerous ways in which requirements can be identified, e.g., via stakeholder interview, by reviewing existing similar systems, by following questionnaires or checklists, or by using testing techniques to derive requirements. Based on Tehrani et al's work \cite{TehraniZL16}, we suggest some general questions that could be addressed when constructing a BX, the answers to which could help derive requirements.
 
 \begin{enumerate}
-\item What needs to be transformed into what?
+\item What needs to be transformed into what? Alternatively -- and declaratively -- what kind of consistency needs to be maintained?
 \item What mechanisms can be used for building the BX? (i.e., theory, tools, techniques)
 \item What are the application domains for the BX?
 \item What are the specific characteristics of the BX (e.g, what patterns are appropriate to use)?
@@ -31,7 +31,7 @@ BX exhibit various properties (such as least-change, or determinism). When consi
 \begin{itemize}
 \item Size: is the BX small (e.g., a single reversible refactoring) or large (e.g., a reversible code generator)? 
 \item Level of automation: is the BX meant to be fully automated, or involve a human-in-the-loop?
-\item Visualisation: how is the BX, its results, and its input presented to users?
+\item Visualisation: how is the BX, the results of executing the BX, and the input to the BX presented to users?
 \item Level of industry application: to what extent is the BX to be deployed in an industrial context?
 \item Maturity level: should the BX be implemented in a tool? Should the BX be a theoretical construct?
 \end{itemize}
@@ -40,10 +40,10 @@ Understanding the relative importance of these properties will be helpful in dec
 \subsection{Functional and Non-functional Requirements}
 In the classical requirements engineering literature, functional requirements specify what a system must, could or should provide. Non-functional (or behavioural) requirements specify criteria against which we can judge the quality of a system. In a requirements document, functional and non-functional requirements are typically presented separately, with suitable tests given that can be used to assess the coverage and completeness of fulfilment of requirements.
 
-There has been little published research on examples of requirements for transformations in general, let alone BX, but based on \cite{TehraniZL16,NalchigarSC13} we can propose some examples for BX. We start with functional requirements. For simplicity of presentation, we assume that a BX under development is defined between two models (a source and a target).
+There has been little published research on examples of requirements for transformations in general, let alone BX, but based on some of \cite{TehraniZL16,NalchigarSC13} we can propose some examples for BX. We start with functional requirements. For simplicity of presentation, we assume that a BX under development is defined between two models (a source and a target).
 
 \begin{itemize}
-\item \textit{Correctness:} when the BX is run in the forward direction, the target model must be well formed (defined in terms of conformance to the target metamodel and any corresponding constraints). Similarly, when the BX is run in the reverse direction, the source model must be well formed.
+\item \textit{Correctness:} a BX that is correct will restore consistency between inconsistent models after its execution. Operationally, when the BX is run in the forward direction, the target model must be well formed (defined in terms of conformance to the target metamodel and any corresponding constraints). Similarly, when the BX is run in the reverse direction, the source model must be well formed. It is interesting to observe that the terminology used in the BX community for correctness differs from that used in the requirements engineering community.
 
 \item \textit{Inconsistency tolerance:} the BX should be able to support incomplete or inconsistent models, e.g., temporarily inconsistent models. This reflects the practical situation wherein a BX \textit{gradually} re-establishes consistency over a sequence of steps.
 
@@ -61,9 +61,9 @@ There has been little published research on examples of requirements for transfo
 
 \item \textit{Style:} a BX should be expressible in a particular style, i.e., declarative, operational or hybrid. 
 \end{itemize}
-Note the wording of these requirements; we have used the words \textit{must}, \textit{should} and \textit{could} to indicate the degree of importance or criticality of each type of requirement. As this suggests -- and as is reinforced by \cite{HidakaTCH16} there is substantial variability in what BX provide (and also how they are implemented).
+Note the wording of these requirements; we have used the words \textit{must}, \textit{should} and \textit{could} to indicate the degree of importance or criticality of each type of requirement. As this suggests -- and as is reinforced by \cite{HidakaTCH16} -- there is substantial variability in what BX provide (and also how they are implemented).
 
-Non-functional requirements, recall, specify criteria against which we can judge the quality of a BX. As is the case for functional requirements for BX, there is limited research on non-functional requirements. Some examples have been proposed in \cite{NalchigarSC13}, and we list a selection here.
+Non-functional requirements, recall, specify criteria against which we can judge the quality of a BX. As is the case for functional requirements for BX, there is limited research on non-functional requirements. Some examples have been proposed by \cite{NalchigarSC13}, and we list a selection here.
 
 \begin{itemize}
 \item \textit{Extensibility}: the extent to which the BX can be extended to support new functional requirements  or a change in scope.
@@ -78,9 +78,9 @@ Non-functional requirements, recall, specify criteria against which we can judge
 Clearly, more research on requirements for BX is needed. As our experience with building BX grows, and our understanding of what constitutes a useful BX scenario increases, our ability to elaborate sensible functional and non-functional requirements for BX will improve.
 
 \subsection{Requirements Engineering Processes for BX}
-In this section we briefly outline typical stages of a requirements engineering process for BX and highlight the key artefacts and stakeholders that will be involved. We discuss elicitation in some detail, and evaluation briefly. This leads in to the next section where we give an overview of some of the key specification techniques that can be used within a requirements engineering process for BX.
+In this section we outline typical stages of a requirements engineering process for BX and highlight the key artefacts and stakeholders that will be involved. We discuss elicitation in some detail, and evaluation briefly. This leads in to the next section where we give an overview of some of the key specification techniques that can be used within a requirements engineering process for BX.
 
-The requirements engineering literature, e.g., \cite{ieee-29148-2011}, identifies the following generic phases in requirements engineering:
+Typical requirements engineering literature \cite{ieee-29148-2011}, identifies the following generic phases in requirements engineering:
 \begin{itemize}
 \item \textit{Domain analysis and elicitation:} Identify who are your stakeholders. From these stakeholders, gather information on the system domain and system requirements.
 
@@ -95,7 +95,7 @@ This is generic, applicable to any kind of software or systems engineering. What
 
 \begin{figure}[htbp]
 \centering{\scalebox{0.5}{\includegraphics{re-process-bx.png}}}
-\caption{A requirements engineering process from \cite{TehraniZL16}}
+\caption{A transformation requirements engineering process \cite{TehraniZL16}}
 \label{fig:re-process}
 \end{figure}
 (It is worth emphasising that the process shown in Figure~\ref{fig:re-process} is for transformations in general, not specifically for BX.) There are some points to note about the above process.
@@ -109,7 +109,7 @@ This is generic, applicable to any kind of software or systems engineering. What
 \end{itemize}
 
 \subsection{Elicitation}
-\textit{Elicitation} is an important first step in any requirements engineering process. What techniques might be applicable for BX? Many of the traditional elicitation techniques appear to be directly applicable to BX problems with little change, as argued by Tehrani et al \cite{TehraniZL16}. For example, a classic elicitation technique is observation (an ethnographic method): observing an existing -- possibly manual -- BX technique or process could provide sensible requirements for an automated process. Consider a scenario wherein a BX is to be defined between an Excel spreadsheet and a SysML requirements diagram\footnote{This is a sanitised version of a real problem encountered by the author.}. A manual BX process between the two might involve (a) making changes to cells in an Excel column; (b) switching to a SysML editor; and (c) modifying attributes in a SysML class model. This might indicate to a requirements engineer a sequence of steps that is needed to implement in an automated BX.
+\textit{Elicitation} is an important first step in any requirements engineering process. What techniques might be applicable for BX? Many of the traditional elicitation techniques appear to be directly applicable to BX problems with little change, as argued by Tehrani et al \cite{TehraniZL16}. For example, a classic elicitation technique is observation (an ethnographic method): observing an existing -- possibly manual -- BX technique or process could provide sensible requirements for an automated process. Consider a scenario wherein a BX is to be defined between an Excel spreadsheet and a SysML requirements diagram\footnote{This is a sanitised version of a real problem encountered by the author.}. A manual BX process between the two might involve (a) making changes to cells in an Excel column; (b) switching to a SysML editor; and (c) modifying attributes in a SysML class model. This might indicate to a requirements engineer that there is a sequence of steps that should be implemented in a BX.
 
 Another technique that can be used for elicitation is the \textit{unstructured interview}, where open-ended questions are asked about the problem domain or the current (BX) process. This can be useful for identifying transformation goals, e.g., ``ensure that the source and target models are inconsistent for no more than 10ms''. In carrying out an unstructured interview regarding a transformation, Tehrani \cite{TehraniZL16} suggests some generic open-ended questions that may be useful to consider; we have extended their questions with some of our own, based on our experience in the MONDO project\footnote{\url{http://www.mondo-project.org/}}.
 \begin{itemize}
@@ -119,31 +119,31 @@ Another technique that can be used for elicitation is the \textit{unstructured i
 
 \item Are there any assumptions that are made about the source or target models? For example, are they always available? Are they read-only? Write-only? Are there confidentiality restrictions?
 \end{itemize}
-Along with unstructured interviews there are \textit{structured} interviews, which involve asking pre-loaded questions about the domain and the BX, perhaps based around a checklist linked to a requirements pattern catalogue. For example, a checklist of questions may be divided into parts, one focusing on questions related to global functional requirements (e.g., is hippocraticness important, is semantics preservation important?) and another related to local non-functional requirements (e.g., should this rule satisfy a specific time bound?)
+Along with unstructured interviews there are \textit{structured} interviews, which involve asking pre-selected questions about the domain and the BX, perhaps based around a checklist linked to a requirements pattern catalogue. For example, a checklist of questions may be divided into parts, one focusing on questions related to global functional requirements (e.g., is hippocraticness important, is semantics preservation important?) and another related to local non-functional requirements (e.g., should this rule satisfy a specific time bound?)
 
 A final elicitation technique that we mention is \textit{scenario-based analysis}, where scenarios are used to capture different requirements transformation processing cases. The benefit of using scenarios is that they are concrete: scenarios are usually presented in a concrete scenario language, often supplemented with sketches of sample models. For example, for BX we might specify a scenario for introducing or removing a pattern to change an object-oriented design. The forward transformation scenario could include a concrete example of introducing the pattern into an existing design.
 
 \subsection{Evaluation}
-Once we have elicited requirements for BX through any of the techniques described previously, we have a set of informal statements of what the BX must or should provide. These statements may be inconsistent, and ideally we should be identify this before we formalise the BX requirements in a specification. There is little to no published research on evaluation techniques for BX requirements. We may find some inspiration in the general requirements engineering literature. For example, one approach used for requirements evaluation is prototyping, i.e., engineers build a prototype (paper, mock-up, simulation) of a solution in order to help identify or reconcile inconsistencies. It is unclear whether the expense of building a BX prototype is greater than building a BX in the first place (because, for example, a BX prototype would need to be constructed using standard BX tools). Another approach that is sometimes used is goal-oriented analysis, but it is as of yet unclear  how goal-oriented techniques apply to the definition of BX. There are significant open questions relating to how we evaluate requirements for BX.
+Once we have elicited requirements for BX through any of the techniques described previously, we have a set of informal statements of what the BX must or should provide. These statements may be inconsistent, and ideally we should be identify this before we formalise the BX requirements in a specification. There is little to no published research on evaluation techniques for BX requirements. We may find some inspiration in the general requirements engineering literature. For example, one approach used for requirements evaluation is prototyping, i.e., engineers build a prototype (paper, mock-up, simulation) of a solution in order to help identify or reconcile inconsistencies. It is unclear whether the expense of building a BX prototype is less than building a BX in the first place (because, for example, a BX prototype could be constructed using standard BX tools, or could be constructed as a paper prototype). Another approach that is sometimes used is goal-oriented analysis, but it is as of yet unclear  how goal-oriented techniques apply to the definition of BX. There are significant open questions relating to how we evaluate requirements for BX.
 
 \subsection{MDE Languages for Requirements Engineering for BX}
-In this section we move from a mostly abstract discussion on requirements engineering for BX and focus on the more concrete topic of languages that can be used to support requirements engineering for BX. There has been some work in this area -- i.e., on different MDE languages and tools for specifying transformation requirements -- though there is still very limited experience of specifying requirements for BX in the specific. Here, we will focus on presenting details of one approach -- \transml\ -- which is a family of languages that can be used for engineering model transformations. \transml\ can, as we will show, be used to specify different aspects of the requirements for a BX. We will also use \transml\ in the next section to specify different facets of the architecture and design of a BX. For an alternative approach to specifying requirements for transformations, based on mind-maps, the interested is referred to the DSL-Maps approach \cite{PescadorL16}.
+In this section we move from a mostly abstract discussion on requirements engineering for BX and focus on the more concrete topic of languages that can be used to support requirements engineering for BX. There has been some work in this area -- i.e., on different MDE languages and tools for specifying transformation requirements -- though there is still very limited experience of specifying requirements for BX in the specific. Here, we will focus on presenting details of one approach -- \transml\ -- which is a family of languages that can be used for engineering model transformations. \transml\ can, as we will show, be used to specify different aspects of the requirements for a BX. We will also use \transml\ in the next section to specify different facets of the architecture and design of a BX. For an alternative approach to specifying requirements for transformations, based on mind-maps, the interested reader is referred to the DSL-Maps approach \cite{PescadorL16}.
 
-\transml\ \cite{GuerraLKPS13}, by way of introduction, is a family of MDE languages to support the lifecycle of transformation development, from requirements through to implementation. It is technology agnostic, and can be used with any transformation implementation language (there is published experience of using \transml\ with QVT, EOL, ETL and ATL). The overall architecture of \transml\ -- that is, the set of languages and their inter-relationships -- is depicted in Figure~\ref{fig:transML}. The parts of \transml\ relevant to this section are the Requirements language (at the top) and the languages to support Analysis (Simple Scenarios and Formal Specification).
+\transml\ \cite{GuerraLKPS13}, by way of introduction, is a family of MDE languages to support the lifecycle of transformation development, from requirements through to implementation. It is technology agnostic, and can be used with any transformation implementation language (there is published experience of using \transml\ with QVT, EOL, ETL and ATL \cite{GuerraLKPS13}). The overall architecture of \transml\ -- that is, the set of languages and their inter-relationships -- is depicted in Figure~\ref{fig:transML}. The parts of \transml\ relevant to this section are the Requirements language (at the top) and the languages to support Analysis (Simple Scenarios and Formal Specification).
 
 \begin{figure}[htbp]
 \centering{\scalebox{0.6}{\includegraphics{transml.png}}}
-\caption{\transml\ architecture; boxes represent languages (or sets of languages) and arrows represent dependencies, typically traceability links}
+\caption{\transml\ architecture; boxes represent languages (or sets of languages) and arrows represent dependencies, typically traceability links \cite{GuerraLKPS13}}
 \label{fig:transML}
 \end{figure}
 
-We focus on the requirements language and those languages of \transml\ that support analysis in this section. The former is used primarily to support the description of the results of elicitation.The latter are used to support detailed specification. 
+We focus on the requirements language and those languages of \transml\ that support analysis in this section. The former is used primarily to support the description of the results of elicitation. The latter are used to support detailed specification. 
 
 To support description of the results of elicitation, \transml\ provides a diagrammatic representation of (BX) requirements that is derived from SysML requirements diagrams. Such representations can be produced using any of the aforementioned techniques for elicitation. Because \transml\ is an MDE language, it is defined using metamodels. The \transml\  requirements metamodel is shown in Figure~\ref{fig:transml-requirements}.
 
 \begin{figure}[htbp]
 \centering{\scalebox{0.6}{\includegraphics{transml-requirements.png}}}
-\caption{\transml\ requirements metamodel}
+\caption{\transml\ requirements metamodel \cite{GuerraLKPS13}}
 \label{fig:transml-requirements}
 \end{figure}
 
@@ -153,7 +153,7 @@ We illustrate the requirements metamodel with two examples, the first from Guerr
 
 \begin{figure}[htbp]
 \centering{\scalebox{0.6}{\includegraphics{transml-requirements-example1.png}}}
-\caption{\transml\ requirements model example (SysML-like concrete syntax)}
+\caption{\transml\ requirements model example (SysML-like concrete syntax) \cite{GuerraLKPS13}}
 \label{fig:transml-requirements-example1}
 \end{figure}
 
@@ -173,19 +173,19 @@ The simple scenario language of \transml\ supports description of \textit{concre
 
 \begin{figure}[htbp]
 \centering{\scalebox{0.6}{\includegraphics{transml-example-case.png}}}
-\caption{\transml\ scenario (example case)}
+\caption{\transml\ scenario (example case) \cite{GuerraLKPS13}}
 \label{fig:transml-example-case}
 \end{figure}
 
 On the left side of the example is the object-oriented model fragment, consisting of a class with a multi-valued attribute; on the right side is a database model fragment, consisting of two tables containing columns and foreign keys. This is an example of a BX scenario involving a class with a multi-valued attribute and a consistent database model that resolves the multi-valued aspect using a foreign key (there are other solutions).
 
-The second \transml\ language for requirements analysis supports formal specification of requirements; it is used to specify what a transformation has to do. It captures correctness properties and specifies restrictions on the models involved in the BX (for example, the consistency relations specified in the BX may only be applicable when the source or target models obey various constraints). \transml\'s formal specification language supports all of this via use of declarative patterns, a concept taken from triple graph grammars. Patterns express allowed and permitted relations between elements from the involved models. The pattern language itself is expressive and can include conditions on attribute values as well as constraint.
+The second \transml\ language for requirements analysis supports formal specification of requirements; it is used to specify what a transformation has to do. It captures correctness properties and specifies restrictions on the models involved in the BX (for example, the consistency relations specified in the BX may only be applicable when the source or target models obey various constraints). The \transml\  formal specification language supports all of this via use of declarative patterns, a concept taken from triple graph grammars. Patterns express allowed and permitted relations between elements from the involved models. The pattern language itself is expressive and can include conditions on attribute values as well as constraints.
 
 The metamodel for the \transml\ formal specification language for requirements is depicted in Figure~\ref{fig:transml-formal-language}.
 
 \begin{figure}[htbp]
 \centering{\scalebox{0.5}{\includegraphics{transml-formal-language.png}}}
-\caption{\transml\ formal specification language metamodel}
+\caption{\transml\ formal specification language metamodel \cite{GuerraLKPS13}}
 \label{fig:transml-formal-language}
 \end{figure}
 
@@ -195,11 +195,11 @@ An example of a pattern for a BX is shown in Figure~\ref{fig:transml-pattern}.
 
 \begin{figure}[htbp]
 \centering{\scalebox{0.6}{\includegraphics{transml-pattern.png}}}
-\caption{\transml\ example pattern}
+\caption{\transml\ example pattern \cite{GuerraLKPS13}}
 \label{fig:transml-pattern}
 \end{figure}
 
-The example pattern is, once again, taken from the object-oriented to database BX example that we have used several times before. In this example, the left side of the diagram is a negative pattern: it checks for the existence of two classes $c$ and $p$ such that $p$ is an ancestor or $c$, while both have an attribute with the same name ($X$). On the right is a positive pattern: it expresses the inherited attribute property (in this case, the inherited attribute named $X$ is mapped into two columns in the database model). More detailed examples of patterns and specifications can be found in \cite{GuerraLKPS13}.
+The example pattern is, once again, taken from the object-oriented to database BX example that we have used several times before. In this example, the left side of the diagram is a negative pattern: it checks for the existence of two classes $c$ and $p$ such that $p$ is an ancestor or $c$, while both have an attribute with the same name ($X$). On the right is a positive pattern: it expresses the inherited attribute property (in this case, the inherited attribute named $X$ is mapped into two columns in the database model). More detailed examples of patterns and specifications can be found in the paper on \transml\ \cite{GuerraLKPS13}.
 
 In the next section we consider the next phases of the BX engineering lifecycle, focusing on architecture and design; we will explore further aspects of \transml\ for supporting these phases.
 

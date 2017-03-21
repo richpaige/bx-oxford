@@ -27,7 +27,7 @@ QVT, as mentioned, is a family of languages. These languages are meant to suppor
 \label{fig:qvt}
 \end{figure}
 
-The Relations language provides mechanisms for the declarative specification of the relationships between MOF models. It supports in turn complex object pattern matching, and implicitly creates trace classes and their instances to record what occurred during the execution of a transformation. Assertions can also be made; for instance, relations can assert that other relations also hold between particular model elements matched by their patterns. As illustrated in the figure, the intention is that Relations specifications can be translated in to the QVT Core language, along with a set of trace models, which in total provide a formal semantics for QVT Relations.
+The Relations language provides mechanisms for the declarative specification of the relationships between MOF models. It supports in turn complex object pattern matching, and implicitly creates trace classes and their instances to record what occurred during the execution of a transformation. Assertions can also be made; for instance, relations can assert that other relations also hold between particular model elements matched by their patterns. As illustrated in the figure, the intention is that Relations specifications can be translated in to the QVT Core language, along with a set of trace models, which in total provide a formal semantics for QVT Relations. Though this is the intention of Relations, it has been shown -- e.g., by Stevens \cite{Stevens13} -- that there are programs that can be expressed in Relations that cannot be translated to Core.
 
 QVT Core, by contrast, is a small yet expressive language that only supports pattern matching over a flat set of variables by evaluating conditions
 over those variables against a set of models. It is intended to be semantically equivalent to QVT Relations, but equivalent QVT Relations programs are liable to be more concise than the QVT Core programs.
@@ -44,7 +44,7 @@ The abstract syntax of the Relations language is illustrated in Figure~\ref{fig:
 
 An example of the concrete syntax of Relations is shown in Listing~\ref{listing:qvt-relations}. This example gives a relation that is part of the classic object-relational mapping, in this case used to map persistent classes in an object oriented program to a table. The example includes three parts: a domain (a set of patterns which defines the variables and constraints that model elements bound to those variables must satisfy -- i.e., the bindings for the relation); the \textit{when} clause (the conditions under which the relation must hold); and the \textit{where} clause (the condition that must be satisfied by all model elements participating in the relation). The interpretation of when-clauses in the Eclipse QVT implementation is that these are preconditions, and where-clause are postconditions. Both of these clauses may contain arbitrary OCL expressions.
 
-\begin{lstlisting}[float,floatplacement=H,basicstyle=\ttfamily,caption=An example of QVT Relations, label=listing:qvt-relations]
+\begin{lstlisting}[float,floatplacement=H,basicstyle=\ttfamily,caption=An example of QVT Relations,captionpos=b,label=listing:qvt-relations]
 relation ClassToTable /* map persistent class to table */
 {
   domain uml c:Class {
